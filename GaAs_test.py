@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 # ---------- Environment ----------
 WORKDIR = Path(os.environ.get("WORKDIR", ".")).resolve() / "phonons_GaAs"
 TMPDIR = WORKDIR / "tmp"
-PSEUDO_DIR = Path(os.environ.get("QE_POTENTIALS", "./pseudos")).resolve()
-
+PSEUDO_DIR = Path(os.environ.get("QE_POTENTIALS",".")).resolve()
+print(PSEUDO_DIR)
 PW_CMD = os.environ.get("QE_PW_COMMAND") or shutil.which("pw.x")
 PH_CMD = os.environ.get("QE_PH_COMMAND") or shutil.which("ph.x")
 Q2R_CMD = shutil.which("q2r.x")
@@ -54,17 +54,28 @@ NQ = (2, 2, 2)         # 4x4x2
 
 # set Γ-X–Γ-Y-Γ-Z
  
-BAND_PATH = [((0.000, 0.000, 0.000), 6, "G"),
-            ((1.000, 0.000, 0.000), 6, "X"),
-            ((0.000, 0.000, 0.000), 6, "G"),
-            ((0.000, 1.000, 0.000), 6, "Y"),
-            ((0.000, 0.000, 0.000), 6, "G"),
-            ((0.000, 0.000, 1.000), 6, "Z"),
+#BAND_PATH = [((0.000, 0.000, 0.000), 6, "G"),
+#            ((1.000, 0.000, 0.000), 6, "X"),
+#            ((0.000, 0.000, 0.000), 6, "G"),
+#            ((0.000, 1.000, 0.000), 6, "Y"),
+#            ((0.000, 0.000, 0.000), 6, "G"),
+#            ((0.000, 0.000, 1.000), 6, "Z"),
+#]
+
+
+BAND_PATH = [
+    ((0.0, 0.0, 0.0), 40, "G"),  # Γ
+    ((0.5, 0.5, 0.0), 40, "X"),
+    ((0.75,0.75,0.0), 40, "K"),
+    ((0.0, 0.0, 0.0), 40, "G"),
+    ((0.5, 0.5, 0.5), 40, "L"),
 ]
 
+
 # Update filenames here to match the ones inside your SSSP folder: 
-PSEUDOS = { "Ga": "Ga.pbe-dn-kjpaw_psl.1.0.0.UPF", "As": "As.pbe-n-rrkjus_psl.0.2.UPF", }
-#PSUDOS = {"U":,"Te":,"O":} #TBD
+PSEUDOS = { "Ga": "ga_pbe_v1.4.uspp.F.UPF",
+    "As": "as_pbe_v1.uspp.F.UPF", }
+#PSEUDOS = {"U":,"Te":,"O":} #TBD
 
 def ensure_setup():
     WORKDIR.mkdir(parents=True, exist_ok=True)
@@ -88,7 +99,7 @@ def write_pw_scf():
           wf_collect = .true.
         /
         &system
-          ibrav = 0 
+          ibrav = 2 
           celldm(1) = {CELLDM1}
           nat = 2 !12
           ntyp = 2 !3
@@ -173,43 +184,69 @@ def ph():
 
 def q2r():
     write_q2r_in()
-    # q2r.x is tiny; 1–2 ranks is fine
-    cmd = [Q2R_CMD, "-i", "q2r.in"] if not MPIRUN else [MPIRUN, "-np", "2", Q2R_CMD, "-i", "q2r.in"]
-    run(cmd, cwd=WORKDIR)
+    # run serial; q2r.x is tiny
+    run([Q2R_CMD, "-i", "q2r.in"], cwd=WORKDIR)
 
 def matdyn():
     write_matdyn_in()
-    cmd = [MATDYN_CMD, "-i", "matdyn.in"] if not MPIRUN else [MPIRUN, "-np", "2", MATDYN_CMD, "-i", "matdyn.in"]
-    run(cmd, cwd=WORKDIR)
-
-def plot_dispersion():
-    
+    # run serial; matdyn.x is light
+    run([MATDYN_CMD, "-i", "matdyn.in"], cwd=WORKDIR)
+def save_dispersion_data():
+    """Save s-coordinate and phonon branches to .dat and .csv with metadata."""
     gp = WORKDIR / f"{PREFIX}.freq.gp"
     if not gp.exists():
         raise FileNotFoundError(f"Expected {gp} after matdyn.x")
+
     data = np.loadtxt(gp)
     s = data[:, 0]
-    bands = data[:, 1:]
-    
-    
-    
-    
-    plt.figure(figsize=(6,4))
+    bands = data[:, 1:]   # columns: mode frequencies (cm^-1)
+
+    # Build segment ticks with Matdyn's shared endpoints (no duplicated joints)
+    seg_counts = [n for _, n, _ in BAND_PATH]
+    tick_idx = [0]
+    acc = 0
+    for n in seg_counts[:-1]:  # stop before last segment
+        acc += n
+        tick_idx.append(acc - 1)
+    tick_positions = [float(s[i]) for i in tick_idx]
+
+    # Labels (use Γ for 'G')
+    tick_labels = [lbl for *_, lbl in BAND_PATH]
+    tick_labels = ['Γ' if L == 'G' else L for L in tick_labels]
+
+    # ----- Write .dat (space-separated) with a header -----
+    dat_path = WORKDIR / f"{PREFIX}_phonon_dispersion.dat"
+    with open(dat_path, "w") as f:
+        f.write("# Phonon dispersion (DFPT) exported from matdyn\n")
+        f.write(f"# System: {PREFIX}\n")
+        f.write(f"# Source file: {gp.name}\n")
+        f.write("# Columns: s  w1(cm^-1)  w2  ...  w(3*nat)\n")
+        f.write("# Path: " + " → ".join(tick_labels) + "\n")
+        f.write("# Tick positions (s): " + " ".join(f"{x:.8f}" for x in tick_positions) + "\n")
+        f.write("# Tick indices: " + " ".join(str(i) for i in tick_idx) + "\n")
+        np.savetxt(f, np.column_stack([s, bands]), fmt="%.8f")
+
+    # ----- Also write CSV (comma-separated) -----
+    csv_path = WORKDIR / f"{PREFIX}_phonon_dispersion.csv"
+    header = "s," + ",".join(f"w{i+1}_cm^-1" for i in range(bands.shape[1]))
+    np.savetxt(csv_path, np.column_stack([s, bands]),
+               delimiter=",", header=header, comments="", fmt="%.8f")
+
+    print(f"Saved {dat_path} and {csv_path}")
+    return s, bands, tick_idx, tick_positions, tick_labels
+
+
+def plot_dispersion():
+    # Save first, then plot using returned metadata
+    s, bands, tick_idx, tick_positions, tick_labels = save_dispersion_data()
+
+    plt.figure(figsize=(6, 4))
     for i in range(bands.shape[1]):
         plt.plot(s, bands[:, i], lw=1)
-    # hsp ticks at segment boundaries (based on BAND_PATH nseg counts)
-    # build ticks at the START of each segment, including the very end
-    seg_counts = [n for _, n, _ in BAND_PATH]           # e.g. [20,20,20,20,1]
-    edge_cumsum = np.cumsum(seg_counts)                 # [20,40,60,80,81]
-    tick_idx = [0] + [e - 1 for e in edge_cumsum]       # [0,19,39,59,80]
-    tick_positions = [s[i] for i in tick_idx]
-    
-    # labels from BAND_PATH, mapping 'G' -> Γ
-    tick_labels = [lbl for *_, lbl in BAND_PATH]        # ['G','X','G','Y','G','Z']
-    tick_labels = [r'$\Gamma$' if L == 'G' else L for L in tick_labels]
-    
-    # apply
-    plt.xticks(tick_positions, tick_labels)
+
+    # Ticks/lines
+    label_for_matplotlib = [r'$\Gamma$' if L == 'Γ' else L for L in tick_labels]
+    plt.xticks(tick_positions, label_for_matplotlib)
     for x in tick_positions:
         plt.axvline(x=x, lw=0.5)
 
@@ -220,6 +257,7 @@ def plot_dispersion():
     outpng = WORKDIR / "GaAs_phonon_dispersion.png"
     plt.savefig(outpng, dpi=300)
     print(f"Saved {outpng}")
+
 
 if __name__ == "__main__":
     ensure_setup()
