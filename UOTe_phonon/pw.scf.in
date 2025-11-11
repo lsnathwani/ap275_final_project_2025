@@ -1,0 +1,49 @@
+      &control
+        calculation='scf'
+        prefix='UOTe'
+        pseudo_dir='/shared/home/lun364/ap275_final_project_2025'
+        outdir='/shared/home/lun364/ap275_final_project_2025/UOTe_phonon/tmp/'
+        verbosity='high'
+        wf_collect=.true.
+      /
+      &system
+        ibrav=0
+        nat=12
+        ntyp=3
+        ecutwfc=35
+        ecutrho=210
+        vdw_corr='grimme-d3'
+        occupations='smearing'
+        smearing='mp'
+        degauss=0.02
+        dftd3_threebody = .false.
+        
+      /
+      &electrons
+        mixing_beta=0.7
+        conv_thr=1.0e-6
+        diagonalization='david'
+      /
+      ATOMIC_SPECIES
+U  238.02891  U.paw.z_14.ld1.uni-marburg.v0.upf
+O   15.999    O.pbe-n-kjpaw_psl.0.1.UPF
+Te 127.60     Te.pbe-n-kjpaw_psl.1.0.0.UPF
+      CELL_PARAMETERS angstrom
+4.050000  0.000000  0.000000
+0.000000  4.050000  0.000000
+0.000000  0.000000  8.650000
+      ATOMIC_POSITIONS crystal
+U 0.750000 0.750000 0.169414
+U 0.250000 0.250000 0.830586
+U 0.250000 0.250000 0.330586
+U 0.750000 0.750000 0.669414
+Te 0.750000 0.750000 0.927105
+Te 0.750000 0.750000 0.427105
+Te 0.250000 0.250000 0.072895
+Te 0.250000 0.250000 0.572895
+O 0.750000 0.250000 0.750000
+O 0.750000 0.250000 0.250000
+O 0.250000 0.750000 0.750000
+O 0.250000 0.750000 0.250000
+      K_POINTS automatic
+        4 4 4 0 0 0

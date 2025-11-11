@@ -1,0 +1,4 @@
+&INPUT
+  prefix='UOTe'
+  outdir='/shared/home/lun364/ap275_final_project_2025/UOTe_phonon/tmp/'
+/

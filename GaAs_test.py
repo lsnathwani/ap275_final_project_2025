@@ -7,12 +7,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # ---------- Environment ----------
-WORKDIR = Path(os.environ.get("WORKDIR", ".")).resolve() / "phonons_GaAs"
-TMPDIR = WORKDIR / "tmp"
-PSEUDO_DIR = Path(os.environ.get("QE_POTENTIALS",".")).resolve()
+BASE_PATH = Path("/shared/home/lun364/ap275_final_project_2025").resolve()
+
+WORKDIR    = BASE_PATH / "GaAs_test_phonon"   # main QE working folder
+TMPDIR     = WORKDIR / "tmp"                  # scratch directory for QE
+PSEUDO_DIR = BASE_PATH                        # folder containing .UPF files
+
 print(PSEUDO_DIR)
-PW_CMD = os.environ.get("QE_PW_COMMAND") or shutil.which("pw.x")
-PH_CMD = os.environ.get("QE_PH_COMMAND") or shutil.which("ph.x")
+PW_CMD = shutil.which("pw.x")
+PH_CMD = shutil.which("ph.x")
 Q2R_CMD = shutil.which("q2r.x")
 MATDYN_CMD = shutil.which("matdyn.x")
 

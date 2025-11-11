@@ -1,0 +1,14 @@
+DFT CALCULATION:
+
+GaAs_test.py - replicates https://pranabdas.github.io/espresso/hands-on/phonon/ to get phonon disp 
+runs really quick - very coarse settings. looked accurate. 
+
+UOTe_phonon.py - changes potentials, magnetism, structure. does successfully run now. if it throws an error during plotting,
+run python -c "import uote_phonon as s; s.plot()" from the folder. you can also call any of the next functions if it stops halfway through a calculation (i.e. times out)
+as long as the matdyn output runs it's okay!
+had to make the d3 hessian for the vdw corr. need to re-run for finer scans. but once it's run once for particular settings it's okay
+Coarse settings (4x4x2 k grid, 6 points b/w path corners) took about 4 hours
+36 irreducible representations!
+need to figure out if it had antiferromagnetic order or not. added 4 spins (4 U atoms)
+these jobs take forever - need to batch them so they're not reliant on continuous internet access. activate ase-env and run 
+sbatch run_uote.sh. currently allocated 4h.

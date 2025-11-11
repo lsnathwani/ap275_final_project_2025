@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/shared/home/lun364/ap275_final_project_2025/uote_phonon.py", line 229, in <module>
+    plot()
+  File "/shared/home/lun364/ap275_final_project_2025/uote_phonon.py", line 201, in plot
+    data = np.loadtxt(gp)
+           ^^^^^^^^^^^^^^
+  File "/shared/courseSharedFolders/155251outer/155251/spack/var/spack/environments/ap-275/.spack-env/view/lib/python3.11/site-packages/numpy/lib/_npyio_impl.py", line 1397, in loadtxt
+    arr = _read(fname, dtype=dtype, comment=comment, delimiter=delimiter,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/shared/courseSharedFolders/155251outer/155251/spack/var/spack/environments/ap-275/.spack-env/view/lib/python3.11/site-packages/numpy/lib/_npyio_impl.py", line 1048, in _read
+    arr = _load_from_filelike(
+          ^^^^^^^^^^^^^^^^^^^^
+ValueError: could not convert string '-1652.1839-1126.8042' to float64 at row 0, column 2.

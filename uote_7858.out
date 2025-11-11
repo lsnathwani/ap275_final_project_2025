@@ -1,0 +1,312 @@
+ERROR: Unable to locate a modulefile for 'quantum-espresso'
+
+     Program PHONON v.7.3 starts on 10Nov2025 at 23:15:57 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+         "P. Giannozzi et al., J. Chem. Phys. 152 154105 (2020);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI & OpenMP), running on       1 processor cores
+     Number of MPI processes:                 1
+     Threads/MPI process:                     1
+
+     MPI processes distributed on     1 nodes
+     46537 MiB available memory on the printing compute node when the environment starts
+
+     Reading input from ph.in
+      Title line not specified: using 'default'.
+
+     Reading xml data from directory:
+
+     /shared/home/lun364/ap275_final_project_2025/UOTe_phonon/tmp/UOTe.save/
+
+     Subspace diagonalization in iterative solution of the eigenvalue problem:
+     a serial algorithm will be used
+
+     file U.paw.z_14.ld1.uni-marburg.v0.upf: wavefunction(s)  6D 5F renormalized
+     file O.pbe-n-kjpaw_psl.0.1.UPF: wavefunction(s)  2P renormalized
+     file Te.pbe-n-kjpaw_psl.1.0.0.UPF: wavefunction(s)  5S 5P renormalized
+
+     IMPORTANT: XC functional enforced from input :
+     Exchange-correlation= PBE
+                           (   1   4   3   4   0   0   0)
+     Any further DFT definition will be discarded
+     Please, verify this is what you really want
+
+
+     G-vector sticks info
+     --------------------
+     sticks:   dense  smooth     PW     G-vecs:    dense   smooth      PW
+     Sum         973     657    193                49231    26813    4497
+
+     Using Slab Decomposition
+
+
+     Check: negative core charge=   -0.000008
+     Reading collected, re-writing distributed wavefunctions in /shared/home/lun364/ap275_final_project_2025/UOTe_phonon/tmp/
+
+
+     Dynamical matrices for ( 1, 1, 1)  uniform grid of q-points
+     (   1 q-points):
+       N         xq(1)         xq(2)         xq(3) 
+       1   0.000000000   0.000000000   0.000000000
+
+     Number and degeneracy of irreps per q-point
+       N         xq(1)         xq(2)         xq(3)   N irreps
+       1   0.000000000   0.000000000   0.000000000      36
+     No degeneracy
+
+     Calculation of q =    0.0000000   0.0000000   0.0000000
+
+     default                                                                    
+
+     bravais-lattice index     =            0
+     lattice parameter (alat)  =       7.6534  a.u.
+     unit-cell volume          =     957.4647 (a.u.)^3
+     number of atoms/cell      =           12
+     number of atomic types    =            3
+     kinetic-energy cut-off    =      35.0000  Ry
+     charge density cut-off    =     210.0000  Ry
+     convergence threshold     =      1.0E-07
+     beta                      =       0.7000
+     number of iterations used =            4
+     Exchange-correlation= PBE
+                           (   1   4   3   4   0   0   0)
+
+
+     celldm(1)=    7.65339  celldm(2)=    0.00000  celldm(3)=    0.00000
+     celldm(4)=    0.00000  celldm(5)=    0.00000  celldm(6)=    0.00000
+
+     crystal axes: (cart. coord. in units of alat)
+               a(1) = (  1.0000  0.0000  0.0000 )  
+               a(2) = (  0.0000  1.0000  0.0000 )  
+               a(3) = (  0.0000  0.0000  2.1358 )  
+
+     reciprocal axes: (cart. coord. in units 2 pi/alat)
+               b(1) = (  1.0000  0.0000  0.0000 )  
+               b(2) = (  0.0000  1.0000  0.0000 )  
+               b(3) = (  0.0000  0.0000  0.4682 )  
+
+
+     Atoms inside the unit cell: 
+
+     Cartesian axes
+
+     site n.  atom      mass           positions (alat units)
+        1  U     238.0289   tau(    1) = (    0.75000    0.75000    0.36183  )
+        2  U     238.0289   tau(    2) = (    0.25000    0.25000    1.77397  )
+        3  U     238.0289   tau(    3) = (    0.25000    0.25000    0.70607  )
+        4  U     238.0289   tau(    4) = (    0.75000    0.75000    1.42974  )
+        5  Te    127.6000   tau(    5) = (    0.75000    0.75000    1.98011  )
+        6  Te    127.6000   tau(    6) = (    0.75000    0.75000    0.91221  )
+        7  Te    127.6000   tau(    7) = (    0.25000    0.25000    0.15569  )
+        8  Te    127.6000   tau(    8) = (    0.25000    0.25000    1.22359  )
+        9  O      15.9990   tau(    9) = (    0.75000    0.25000    1.60185  )
+       10  O      15.9990   tau(   10) = (    0.75000    0.25000    0.53395  )
+       11  O      15.9990   tau(   11) = (    0.25000    0.75000    1.60185  )
+       12  O      15.9990   tau(   12) = (    0.25000    0.75000    0.53395  )
+
+     Computing dynamical matrix for 
+                    q = (   0.0000000   0.0000000   0.0000000 )
+
+      5 Sym.Ops. (with q -> -q+G )
+
+
+     G cutoff =  311.5784  (  49231 G-vectors)     FFT grid: ( 36, 36, 75)
+     G cutoff =  207.7189  (  26813 G-vectors)  smooth grid: ( 30, 30, 64)
+
+     number of k points=    24  Methfessel-Paxton smearing, width (Ry)=  0.0200
+
+     PseudoPot. # 1 for U  read from file:
+     /shared/home/lun364/ap275_final_project_2025/U.paw.z_14.ld1.uni-marburg.v0.upf
+     MD5 check sum: 0343693cc166857ace12183ecb4b0f49
+     Pseudo is Projector augmented-wave + core cor, Zval = 14.0
+     Generated using &quot;atomic&quot; code by A. Dal Corso  v.6.3MaX
+     Shape of augmentation charge: PSQ
+     Using radial grid of 1291 points,  8 beta functions with: 
+                l(1) =   0
+                l(2) =   0
+                l(3) =   1
+                l(4) =   1
+                l(5) =   2
+                l(6) =   2
+                l(7) =   3
+                l(8) =   3
+     Q(r) pseudized with 0 coefficients 
+
+
+     PseudoPot. # 2 for O  read from file:
+     /shared/home/lun364/ap275_final_project_2025/O.pbe-n-kjpaw_psl.0.1.UPF
+     MD5 check sum: 0234752ac141de4415c5fc33072bef88
+     Pseudo is Projector augmented-wave + core cor, Zval =  6.0
+     Generated using "atomic" code by A. Dal Corso  v.5.0.99 svn rev. 10869
+     Shape of augmentation charge: BESSEL
+     Using radial grid of 1095 points,  4 beta functions with: 
+                l(1) =   0
+                l(2) =   0
+                l(3) =   1
+                l(4) =   1
+     Q(r) pseudized with 0 coefficients 
+
+
+     PseudoPot. # 3 for Te read from file:
+     /shared/home/lun364/ap275_final_project_2025/Te.pbe-n-kjpaw_psl.1.0.0.UPF
+     MD5 check sum: db3411ca20cbe840ebfd485f3ecc492d
+     Pseudo is Projector augmented-wave + core cor, Zval =  6.0
+     Generated using &quot;atomic&quot; code by A. Dal Corso  v.6.3
+     Shape of augmentation charge: PSQ
+     Using radial grid of 1245 points,  6 beta functions with: 
+                l(1) =   0
+                l(2) =   0
+                l(3) =   1
+                l(4) =   1
+                l(5) =   2
+                l(6) =   2
+     Q(r) pseudized with 0 coefficients 
+
+
+     Mode symmetry, C_2h (2/m)  point group:
+
+
+     Atomic displacements:
+     There are   36 irreducible representations
+
+     Representation     1      1 modes -  To be done
+
+     Representation     2      1 modes -  To be done
+
+     Representation     3      1 modes -  To be done
+
+     Representation     4      1 modes -  To be done
+
+     Representation     5      1 modes -  To be done
+
+     Representation     6      1 modes -  To be done
+
+     Representation     7      1 modes -  To be done
+
+     Representation     8      1 modes -  To be done
+
+     Representation     9      1 modes -  To be done
+
+     Representation    10      1 modes -  To be done
+
+     Representation    11      1 modes -  To be done
+
+     Representation    12      1 modes -  To be done
+
+     Representation    13      1 modes -  To be done
+
+     Representation    14      1 modes -  To be done
+
+     Representation    15      1 modes -  To be done
+
+     Representation    16      1 modes -  To be done
+
+     Representation    17      1 modes -  To be done
+
+     Representation    18      1 modes -  To be done
+
+     Representation    19      1 modes -  To be done
+
+     Representation    20      1 modes -  To be done
+
+     Representation    21      1 modes -  To be done
+
+     Representation    22      1 modes -  To be done
+
+     Representation    23      1 modes -  To be done
+
+     Representation    24      1 modes -  To be done
+
+     Representation    25      1 modes -  To be done
+
+     Representation    26      1 modes -  To be done
+
+     Representation    27      1 modes -  To be done
+
+     Representation    28      1 modes -  To be done
+
+     Representation    29      1 modes -  To be done
+
+     Representation    30      1 modes -  To be done
+
+     Representation    31      1 modes -  To be done
+
+     Representation    32      1 modes -  To be done
+
+     Representation    33      1 modes -  To be done
+
+     Representation    34      1 modes -  To be done
+
+     Representation    35      1 modes -  To be done
+
+     Representation    36      1 modes -  To be done
+
+
+
+     Alpha used in Ewald sum =   1.8000
+
+     Reading Grimme-D3 Hessian from file: /shared/home/lun364/ap275_final_project_2025/UOTe_phonon/tmp/UOTe.hess
+
+     Number of cells replicated along each semiaxis:   13  13   6
+     Number of cells in the supercell:      9477
+     Number of atoms in the supercell:    113724
+     Hessian allocation dimension:  12282192
+
+     Grimme-D3 Hessian read 
+
+     Computing dynamical matrix for q:     0.000000    0.000000    0.000000
+
+     Writing Hessian on file dynamical.false.dat
+
+     Dynamical matrix computed
+     PHONON       :   4m14.05s CPU   4m15.82s WALL
+
+
+
+     Representation #   1 mode #   1
+
+     Self-consistent Calculation
+
+     Pert. #  1: Fermi energy shift (Ry) =    -3.4016E-02     5.9557E-23
+
+      iter #   1 total cpu time :   312.3 secs   av.it.:  11.0
+      thresh= 1.000E-02 alpha_mix =  0.700 |ddv_scf|^2 =  1.706E-04
+
+     Pert. #  1: Fermi energy shift (Ry) =     6.5122E-02    -4.4999E-22
+
+      iter #   2 total cpu time :   397.4 secs   av.it.:  23.7
+      thresh= 1.306E-03 alpha_mix =  0.700 |ddv_scf|^2 =  6.679E-02
+
+     Pert. #  1: Fermi energy shift (Ry) =    -1.5157E-01     2.3823E-22
+
+      iter #   3 total cpu time :   459.3 secs   av.it.:  15.2
+      thresh= 1.000E-02 alpha_mix =  0.700 |ddv_scf|^2 =  2.072E-05
+
+     Pert. #  1: Fermi energy shift (Ry) =     8.2867E-02    -2.1507E-23
+
+      iter #   4 total cpu time :   536.0 secs   av.it.:  20.6
+      thresh= 4.552E-04 alpha_mix =  0.700 |ddv_scf|^2 =  5.126E-05
+
+     Pert. #  1: Fermi energy shift (Ry) =    -6.8268E-03    -2.4815E-23
+     Message from routine mix_potential:
+     file not found, restarting
+
+      iter #   1 total cpu time :   598.2 secs   av.it.:  15.2
+      thresh= 7.159E-04 alpha_mix =  0.700 |ddv_scf|^2 =  3.705E-05
+
+     Pert. #  1: Fermi energy shift (Ry) =     1.1634E-02     1.1911E-22
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     Error in routine davcio (99):
+     error reading file "/shared/home/lun364/ap275_final_project_2025/UOTe_phonon/tmp/_ph0/UOTe.mixd1"
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+     stopping ...
+>> /opt/amazon/openmpi5/bin/mpirun -np 1 /shared/courseSharedFolders/155251outer/155251/quantum_espresso/src/q-e/bin/ph.x -i ph.in

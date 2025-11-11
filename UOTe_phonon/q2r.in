@@ -1,0 +1,5 @@
+&input
+  fildyn='UOTe.dyn'
+  flfrc='UOTe.fc'
+  zasr='crystal'
+/
